@@ -10,12 +10,10 @@
   </head>
 
   <body>
-  <a href="/">Home</a>
-
-  <a href="/contacts/new">Contact Us</a>
-
-
+  <%= link_to "Home", root_path %>
   <%= link_to "Contact Us", contacts_new_path %>
+  <%= link_to 'New Question', new_question_path %>
+  <%= link_to 'All Questions', questions_path %>
   <hr>
     <%= yield %>
   </body>
