@@ -2,6 +2,8 @@
 
 <p><%= @question.body %></p>
 
+<h4>Created by: <%= @question.user&.full_name || 'DELETED' %></h4>
+
 <div>
   <small>
     Asked <%= time_ago_in_words(@question.created_at)  %> ago
@@ -17,6 +19,7 @@
 </div>
 
 <div>
+  <% if can? :crud, @question %>
   <small>
     <%= link_to "Edit", edit_question_path(@question) %>
   </small> |
@@ -27,6 +30,7 @@
           data: { confirm: "Are you sure?"}
           )%>
   </small>
+  <% end %>
 </div>
 
 <section>
@@ -56,6 +60,7 @@
         <li>
           <p>
           <%= answer.body %> <br />
+          <% if can?(:crud, answer)%>
           <small>
             <%= link_to(
             "Delete",
@@ -65,8 +70,12 @@
             }
             ) %>
           </small>
+          <% end%>
           <small>
             Answered <%= time_ago_in_words(answer.created_at) %> ago
+          </small>
+         <small>
+            Answered by: <%= answer.user&.full_name || 'DELETED' %>
           </small>
         </p>
         </li>

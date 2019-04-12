@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
-    before_action :find_question, only: [:show, :edit, :update, :destroy]
-  
+  before_action :authenticate_user!, except: [:index, :show]  
+  before_action :find_question, only: [:show, :edit, :update, :destroy]
+  before_action :authorize, only: [:edit, :update, :destroy]
     def new
       @question = Question.new
     end
@@ -16,6 +17,7 @@ class QuestionsController < ApplicationController
       # # render the params as JSON. This is like doing
       # # res.send(req.body) in Express
       @question = Question.new question_params
+      @question.user = current_user
       if @question.save
         # The redirect_to method is used for telling the
         # browser to make a new request.
@@ -31,7 +33,7 @@ class QuestionsController < ApplicationController
           # For the form_with helper
       @answer = Answer.new
        # For the list of answers
-    @answers = @question.answers.order(created_at: :desc)
+      @answers = @question.answers.order(created_at: :desc)
     end
   
     def index
@@ -39,6 +41,9 @@ class QuestionsController < ApplicationController
     end
   
     def edit
+      # if !can? :edit, @question
+      #   redirect_to root_path, alert: 'Not authorized'
+      # end
     end
   
     def update
@@ -68,6 +73,10 @@ class QuestionsController < ApplicationController
   
     def find_question
       @question = Question.find(params[:id])
+    end
+
+    def authorize
+      redirect_to root_path, alert: 'Not Authorized' unless can?(:crud, @question)
     end
   
   end
