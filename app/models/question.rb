@@ -1,4 +1,7 @@
 class Question < ApplicationRecord
+  has_many :likes, dependent: :destroy
+  has_many :likers, through: :likes, source: :user
+
   belongs_to :user
   # This is the Question model. We generated
   # this file with the command:
@@ -9,7 +12,7 @@ class Question < ApplicationRecord
   # all of the columns of the table (i.e. title body,
   # created_at, updated_at)
 
-# Adding the 'dependent: :destroy' option tells
+  # Adding the 'dependent: :destroy' option tells
   # Rails to delete associated records before
   # deleting the record itself. In this case
   # specifically, when a question is deleted,
@@ -55,6 +58,9 @@ class Question < ApplicationRecord
   # rules
 
   # To read more on validations: https://guides.rubyonrails.org/active_record_validations.html
+
+  #        Column Name   Validation        Validation
+  #           ð          ð                  ð
   validates(:title, presence: true, uniqueness: true)
 
   validates(

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :job_posts, only: [:new,:create, :show]
+  resources :job_posts, only: [:new,:create, :show,:destroy]
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :users, only:[:new, :create]
@@ -16,7 +16,8 @@ Rails.application.routes.draw do
   # the first argument pluralized and PascalCased
   # (i.e. :question => QuestionsController )
   resources :questions do 
-  resources :answers, only: [:create, :destroy]
+    resources :answers, only: [:create, :destroy]
+    resources :likes, only: [:create, :destroy]
   end
   # get('/questions/new', to: 'questions#new', as: :new_question)
   # post('/questions', to: 'questions#create', as: :questions)

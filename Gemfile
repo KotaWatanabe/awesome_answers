@@ -36,6 +36,7 @@ gem 'cowsay'
 gem 'cancancan'
 gem 'jquery-rails'
 gem 'bootstrap', '~> 4.3.1'
+gem 'pry-rails'
 
 
 # Reduces boot times through caching; required in config/boot.rb
@@ -56,6 +57,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'hirb'
 end
 
 

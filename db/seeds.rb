@@ -7,6 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 PASSWORD = "supersecret"
 
+JobPost.delete_all
+Like.delete_all
 Answer.delete_all
 Question.delete_all
 User.delete_all
@@ -44,10 +46,13 @@ users = User.all
     updated_at: created_at,
     user: users.sample
   )
+
   if q.valid?
     q.answers = rand(0..15).times.map do
       Answer.new(body: Faker::GreekPhilosophers.quote, user: users.sample)
     end
+
+    q.likers = users.shuffle.slice(0, rand(users.count))
   end
 end
 
@@ -58,4 +63,3 @@ puts Cowsay.say("Generated #{ questions.count } questions", :ghostbusters)
 puts Cowsay.say("Generated #{ answers.count } answers", :stegosaurus)
 puts Cowsay.say("Generated #{ users.count } users", :beavis)
 puts Cowsay.say("Login with #{super_user.email} and password: #{PASSWORD}", :koala)
-
