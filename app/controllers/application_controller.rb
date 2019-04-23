@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
         end
     end
     helper_method :current_user
+    
       # helper_method makes a controller method available
       # to all views (or templates)
 
