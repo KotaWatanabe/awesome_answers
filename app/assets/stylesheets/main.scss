@@ -1,0 +1,44 @@
+html {
+    /* Create a CSS variable by prefixing a word with -- */
+    --border-radius: 5px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+.padding{
+    padding: 1em;
+}
+.navbar{
+    padding: 1em;
+}
+.navbar-brand{
+    font-size:1.5em;
+}
+.navbar li{
+   padding-left: 1em;
+   padding-right: 1em;
+   font-size:1.2em;
+}
+.jumbotron{
+    text-align: center;
+}
+input[type="text"] {
+    width: 80%;
+}
+
+input[type="email"] {
+    width: 80%;
+}
+
+input[type="password"] {
+    width: 80%;
+}
+
+li{
+    list-style: none;
+ }
+ .card-title{
+     font-size: 1.2rem;
+ }
+ .card-body{
+     padding: 0.5em;
+ }
+ 

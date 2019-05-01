@@ -1,4 +1,20 @@
 Rails.application.routes.draw do
+  # GET /api/v1/questions -> questions#index
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :questions
+      resource :session, only: [:create, :destroy]
+    end
+  end
+  # rails routes | grep api/v1
+
+  match(
+    "/delayed_job",
+    to: DelayedJobWeb,
+    anchor: false,
+    via: [:get, :post]
+  )
+
   resources :job_posts, only: [:new,:create, :show,:destroy]
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

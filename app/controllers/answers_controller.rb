@@ -7,6 +7,10 @@ class AnswersController < ApplicationController
       @answer.question = @question
       @answer.user = current_user
       if @answer.save
+      # Notify question creator that they got a reply
+      # using email
+        # AnswerMailer.new_answer(@answer).deliver_now
+        AnswerMailer.new_answer(@answer).deliver_later(wait: 5.seconds)
         redirect_to question_path(@question)
       else
         @answers = @question.answers.order(created_at: :desc)

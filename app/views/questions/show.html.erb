@@ -1,71 +1,81 @@
-<h3><%= @question.title %></h3>
-
-<p><%= @question.body %></p>
-
-<h4>
-  Created by: <%= @question.user&.full_name || 'DELETED' %>
-</h4>
-
-<p>
-  Tags: <%= @question.tags.map{ |t| t.name }.join(", ") %>
-  <%#= The second line below is equivalent to the line above.
-  Passing &:name to any enumerable method will call .name
-  on each element %>  
-  <%#= @question.tags.map(&:name).join(", ") %>
-</p>
-
-<div>
-  <small>
-    Asked <%= time_ago_in_words(@question.created_at)  %> ago
-  </small>
-  |
-  <small>
-    Last edited <%= time_ago_in_words(@question.updated_at) %> ago
-  </small>
-  |
-  <small>
-    Seen <%= pluralize(@question.view_count, "time") %>
-  </small>
+<div class="container-fluid padding">
+  <div class="card">
+    <div class="card-body">
+      <div class="card-title">
+        <h3><%= @question.title %></h3>
+      <div class="card-text">
+        <p><%= @question.body %></p>
+        <h4>
+        Created by: <%= @question.user&.full_name || 'DELETED' %>
+        </h4>
+        <% unless @question.tags.empty? %>
+          <div>
+            <% @question.tags.each do |tag| %>
+              <%= link_to(tag.name, questions_path(tag: tag.name), class: "badge badge-pill badge-primary") %>
+            <% end %>
+          </div>
+        <% end %>
+        <small>
+          Asked <%= time_ago_in_words(@question.created_at)  %> ago
+        </small>
+        |
+        <small>
+          Last edited <%= time_ago_in_words(@question.updated_at) %> ago
+        </small>
+        |
+         <small>
+          Seen <%= pluralize(@question.view_count, "time") %>
+        </small>
+        <div>
+          <% if can?(:like, @question) %>
+             <% if @like.present? %>
+              <%=
+                link_to(
+                   "Unlike",
+                  question_like_path(@question, @like),
+                   method: :delete
+                )
+              %>
+             <% else %>
+               <%=
+                link_to(
+                  "Like",
+                  question_likes_path(@question),
+                  method: :post
+                )
+              %>
+            <% end %>
+          <% end %>
+          <span><%= pluralize(@question.likes.count, "like") %></span>
+         </div>
+         <div>
+           <% if can?(:crud, @question) %>
+             <small>
+              <%= link_to "Edit", edit_question_path(@question) %>
+            </small> |
+            <small>
+              <%= link_to(
+                        "Delete", question_path(@question),
+                        method: :delete,
+                        data: { confirm: "Are you sure?"}
+                        )%>
+                </small>
+              <% end %>
+            </div>
+        </div>
+      </div>
+  </div>
 </div>
 
-<div>
-<% if can?(:like, @question) %>
-  <% if @like.present? %>
-    <%=
-      link_to(
-        "Unlike",
-        question_like_path(@question, @like),
-        method: :delete
-      )
-    %>
-  <% else %>
-    <%=
-      link_to(
-        "Like",
-        question_likes_path(@question),
-        method: :post
-      )
-    %>
-  <% end %>
-  <% end %>
 
-  <span><%= pluralize(@question.likes.count, "like") %></span>
-</div>
 
-<div>
-  <% if can?(:crud, @question) %>
-    <small>
-      <%= link_to "Edit", edit_question_path(@question) %>
-    </small> |
-    <small>
-      <%= link_to(
-            "Delete", question_path(@question),
-            method: :delete,
-            data: { confirm: "Are you sure?"}
-            )%>
-    </small>
-  <% end %>
-</div>
+
+
+
+
+
+
+
 
 <section>
   <h1>Answers</h1>
@@ -87,12 +97,12 @@
     <%= f.submit "Answer" %>
   <% end %>
 
-  <hr />
-
-    <ul class="answer-list">
+    
       <% @answers.each do |answer| %>
-        <li>
-          <p>
+       <div class="card my-2">
+       <div class="card-body">
+      
+    
           <%= answer.body %> <br />
           <% if can?(:crud, answer) %>
             <small>
@@ -111,8 +121,12 @@
           <small>
               Answered by: <%= answer.user&.full_name || 'DELETED' %>
           </small>
-        </p>
-        </li>
+        
+  </div>
+  </div>
       <% end %>
-    </ul>
+
+    
+    
 </section>
+</div>

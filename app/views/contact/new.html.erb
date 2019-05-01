@@ -1,19 +1,23 @@
 <div class="container-fluid">
 <h1>Contact Us</h1>
-
-<%= form_tag contacts_path do %>
-    <div>
-    <%= label_tag :name %> <br>
-    <%= text_field_tag :name%>
+  <div class="form">
+  <%= form_tag contacts_path do %>
+      <div class="form-group">
+      <%= label_tag :name %> <br>
+      <%= text_field_tag :name %>
+    </div>
+    <div class="form-group">
+      <%= label_tag :email %> <br>
+      <%= email_field_tag :email %>
+    </div>
+    <div class="form-group">
+      <%= label_tag :message %> <br>
+      <%= text_area_tag :message %>
+    </div>
+    <%= submit_tag 'Contact Us', class:"btn btn-primary"%>
+  <% end %>
   </div>
-  <div>
-    <%= label_tag :email %> <br>
-    <%= email_field_tag :email%>
-  </div>
-  <div>
-    <%= label_tag :message %> <br>
-    <%= text_area_tag :message%>
-  </div>
-  <%= submit_tag 'Contact Us', class:"btn btn-primary"%>
- <% end %>
  </div>
+
+
+ 

@@ -14,7 +14,6 @@
    after the class of the passed in model
    (e.g. <input type="text" name="question[title]" id="question_title"> => { "question": { "title": "What?"} })
 %>
-
 <%= form_with(model: @question, local: true) do |form| %>
 
   <% if @question.errors.present? %>
@@ -23,20 +22,39 @@
     </p>
   <% end %>
   <div>
-    <%= form.label :title %> <br>
+    <%= form.label :title %>
     <%= form.text_field :title %>
   </div>
   <div>
-    <%= form.label :body %> <br>
+    <%= form.label :body %>
     <%= form.text_area :body %>
   </div>
   <div>
-    <%= form.collection_check_boxes :tag_ids, Tag.all, :id, :name do |b|%>
-      <div class="tag-wrapper">
-        <%= b.check_box %>
-        <%= b.text.humanize %>
-      </div>
-    <% end %>
+    <%= form.label :tag_names %>
+    <%= form.text_field :tag_names %>
+    <%#= form.collection_check_boxes :tag_ids, Tag.all, :id, :name do |b| %>
+      <!-- <div class="tag-wrapper">
+        <%#= b.check_box %>
+        <%#= b.text.humanize %>
+      </div> -->
+    <%# end %>
   </div>
-  <%= form.submit class:"btn btn-primary" %>
+
+  <%= form.submit class: 'btn btn-primary' %>
 <% end %>
+
+<script>
+  $("#question_tag_names").selectize({
+    delimiter: ',',
+    persist: false,
+    labelField: "name",
+    valueField: "name",
+    searchField: "name",
+    options: <%= Tag.select(:name).to_json(except: [:id]).html_safe %>,
+    create (input) {
+      return {
+        name: input
+      }
+    }
+  });
+</script>

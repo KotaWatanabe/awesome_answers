@@ -1,10 +1,14 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
+# All gems are automaticlaly `required` for the Rails project
+# so you can just use them anywhere without having to type
+# require 'gem_name'
+
 ruby '2.6.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.3'
+gem 'rails', '~> 5.2.1'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
@@ -31,13 +35,17 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'faker'
+gem 'pry-rails'
 gem 'cowsay'
+gem 'faker'
 gem 'cancancan'
 gem 'jquery-rails'
 gem 'bootstrap', '~> 4.3.1'
-gem 'pry-rails'
-
+gem "selectize-rails"
+gem 'delayed_job_active_record'
+gem 'delayed_job_web'
+gem 'font-awesome-rails'
+gem 'active_model_serializers'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
@@ -58,6 +66,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'hirb'
+  gem 'letter_opener'
 end
 
 

@@ -10,29 +10,32 @@
   </head>
 
   <body>
-  <%= link_to "Home", root_path %>
-  |
-  <%= link_to "Contact Us", contacts_new_path %>
-  |
-  <%= link_to 'New Question', new_question_path %>
-  |
-  <%= link_to 'All Questions', questions_path %>
-  |
-  <% if user_signed_in? %>
-    Hello <%= current_user.first_name %>
-  |
-    <%= link_to "Logout", session_path, method: :delete, data: {confirm: "are you sure you want to log out?"} %>
-  <% else %>
-  <%= link_to "Login", new_session_path %>
-  |
-  <%= link_to "Sign Up", new_user_path %>
-  <% end %>
-  <hr>
-  <% flash.each do |type, message| %>
-      <div class="flash flash-<%= type %>">
-        <%= message %>
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+      <div class="navbar-brand">
+        <%= link_to 'Awesome Answers', root_path %>
       </div>
-    <% end %>
-    <%= yield %>
+
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <ul class="navbar-nav ml-auto">
+            <li><%= link_to "Home", root_path %></li>
+            <li><%= link_to "Contact Us", contacts_new_path %></li>
+            <li><%= link_to 'New Question', new_question_path %></li>
+            <li><%= link_to 'All Questions', questions_path %></li>
+          <% if user_signed_in? %>
+            <li>Hello <%= current_user.first_name %></li>
+            <li><%= link_to "Logout", session_path, method: :delete, data: {confirm: "are you sure you want to log out?"} %></li>
+           <% else %>
+            <li><%= link_to "Login", new_session_path %></li>
+            <li><%= link_to "Sign Up", new_user_path %></li>
+          <% end %>
+          </ul>
+        </div>
+    </nav>
+        <% flash.each do |type, message| %>
+            <div class="alert alert-<%= type %>">
+              <%= message %>
+            </div>
+          <% end %>
+      <%= yield %>
   </body>
 </html>

@@ -1,3 +1,4 @@
+<div class="container-fluid">
 <h1>Sign Up</h1>
 
 <%= form_with model: @user, local: true do |f| %>
@@ -7,24 +8,25 @@
     </p>
   <% end %>
   <div>
-    <%= f.label :first_name %>
+    <%= f.label :first_name %> <br>
     <%= f.text_field :first_name %>
   </div>
   <div>
-    <%= f.label :last_name %>
+    <%= f.label :last_name %> <br>
     <%= f.text_field :last_name %>
   </div>
   <div>
-    <%= f.label :email %>
+    <%= f.label :email %> <br>
     <%= f.email_field :email %>
   </div>
   <div>
-    <%= f.label :password %>
+    <%= f.label :password %> <br>
     <%= f.password_field :password %>
   </div>
   <div>
-    <%= f.label :password_confirmation %>
+    <%= f.label :password_confirmation %> <br>
     <%= f.password_field :password_confirmation %>
   </div>
   <%= f.submit "Sign Up" %>
 <% end %>
+</div>
