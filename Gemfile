@@ -46,6 +46,7 @@ gem 'delayed_job_active_record'
 gem 'delayed_job_web'
 gem 'font-awesome-rails'
 gem 'active_model_serializers'
+gem 'rack-cors'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
